@@ -1,0 +1,24 @@
+{
+  "hero_image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2300&q=85",
+  "hero_alt": "Misty mountains",
+  "interlude_image": "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2200&q=85",
+  "journal_note": "These are example stories. Your own adventures will take their place here.",
+  "photo_note": "Placeholder landscape photos via Unsplash. Replace these with your own photography when ready.",
+  "gallery": [
+    {
+      "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=82",
+      "alt": "Peaceful forest",
+      "caption": "01 / INTO THE WOODS"
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=82",
+      "alt": "Alpine mountain lake",
+      "caption": "02 / STILL WATERS"
+    },
+    {
+      "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=82",
+      "alt": "Stars and mountains at night",
+      "caption": "03 / AFTER DARK"
+    }
+  ]
+}

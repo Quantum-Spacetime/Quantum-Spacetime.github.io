@@ -1,0 +1,104 @@
+media:
+  input: adventures/images
+  output: /adventures/images
+  extensions: [jpg, jpeg, png, webp, avif]
+  rename: random
+content:
+  - name: stories
+    label: Journal stories
+    type: collection
+    path: _stories
+    format: yaml-frontmatter
+    filename: '{year}-{month}-{day}-{primary}.md'
+    subfolders: false
+    view:
+      primary: title
+      fields: [title, date, published, sample]
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: Story title
+        type: string
+        required: true
+      - name: published
+        label: Show on the website
+        type: boolean
+        default: false
+        description: 'Turn on and save to publish. Off hides the story from the website, but its source is still public on GitHub.'
+      - name: date
+        label: Story date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: category
+        label: Category / place
+        type: string
+        required: true
+        description: 'For example: TRAILS / BAVARIAN ALPS'
+      - name: sample
+        label: Mark as an example story
+        type: boolean
+        default: false
+      - name: cover
+        label: Cover photograph
+        type: image
+        required: true
+      - name: alt
+        label: Describe the cover photograph
+        type: string
+        required: true
+      - name: summary
+        label: Short introduction
+        type: text
+        required: true
+      - name: body
+        label: Your story
+        type: rich-text
+        required: true
+        options:
+          format: html
+          switcher: false
+        description: 'Write, format text and insert photos with the toolbar. Save after editing.'
+  - name: appearance
+    label: Banner images and photography gallery
+    type: file
+    path: _data/adventures.json
+    format: json
+    fields:
+      - name: hero_image
+        label: Main banner photograph
+        type: image
+        required: true
+      - name: hero_alt
+        label: Describe the main banner photograph
+        type: string
+        required: true
+      - name: interlude_image
+        label: Photograph behind the quotation
+        type: image
+        required: true
+      - name: journal_note
+        label: Introduction beside Latest stories
+        type: text
+      - name: photo_note
+        label: Note below the gallery
+        type: text
+      - name: gallery
+        label: Photography gallery
+        type: object
+        list: true
+        description: 'The first photo is large; the others use the existing grid. Drag items to reorder.'
+        fields:
+          - name: image
+            label: Photograph
+            type: image
+            required: true
+          - name: alt
+            label: Describe the photograph
+            type: string
+            required: true
+          - name: caption
+            label: Caption
+            type: string
