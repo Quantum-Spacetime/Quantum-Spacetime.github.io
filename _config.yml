@@ -2,9 +2,13 @@
 collections:
   stories:
     output: false
+  notion_articles:
+    output: true
 exclude:
   - Gemfile
   - Gemfile.lock
   - scripts
   - adventures/README.md
   - vendor
+  - requirements-notion.txt
+  - tests

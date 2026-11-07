@@ -13,9 +13,9 @@ parser.add_argument('--jekyll', default='bundle exec jekyll')
 args = parser.parse_args()
 root = Path(__file__).resolve().parents[1]
 with tempfile.TemporaryDirectory(prefix='quiet-atlas-check-') as tmp:
-    source = Path(tmp) / 'source'
+    source = (Path(tmp) / 'source').resolve()
     shutil.copytree(root, source, ignore=shutil.ignore_patterns('.git', '_site', 'vendor', '.bundle'))
-    target = Path(tmp) / 'site'
+    target = (Path(tmp) / 'site').resolve()
     def build():
         subprocess.run(shlex.split(args.jekyll) + ['build', '--strict_front_matter', '--source', str(source), '--destination', str(target)], cwd=source, check=True, stdout=subprocess.DEVNULL)
         page = (target / 'adventures/index.html').read_text()
@@ -28,7 +28,7 @@ with tempfile.TemporaryDirectory(prefix='quiet-atlas-check-') as tmp:
     assert page.count('<article class="story">') == 3
     assert page.count('<figure class="gallery-item">') == 3
     assert 'This is a demonstration of how a longer travel entry' in page
-    assert 'https://app.pagescms.org/' in (target / 'adventures/admin/index.html').read_text()
+    assert 'https://www.notion.so/f6f3b39feb4f4ca381da9698717358ca' in (target / 'adventures/admin/index.html').read_text()
     story = source / '_stories/verification.md'
     data = dict(title='Verification <title>', published=True, date='2026-11-07', category='TEST / ALPS', sample=False, cover='/adventures/images/verify.png', alt='A "test" photograph', summary='Create a story')
     def write(body):

@@ -26,6 +26,7 @@ footer{background:#263a30;color:#e8eee8;padding-top:65px}.footer-row{display:fle
 @media(max-width:920px){.wrap{padding:0 32px}.intro-grid{grid-template-columns:1fr;gap:25px}.about-grid{gap:5%}.story h3{font-size:37px}}
 @media(max-width:700px){.wrap{padding:0 21px}.section{padding:78px 0}nav{height:76px}.logo{font-size:10px;gap:8px}.logo span{font-size:28px}.menu{display:block;border:0;background:none;color:white;font-size:12px;letter-spacing:.1em;cursor:pointer;padding:12px}.navlinks{display:none;position:absolute;top:76px;left:0;right:0;background:#263a30;flex-direction:column;align-items:stretch;gap:0;padding:14px 22px 28px}.navlinks.open{display:flex}.navlinks a{padding:13px}.navlinks .outline{margin:9px 0 0}.hero{height:90svh;min-height:690px}.hero-photo{object-position:57% center}.hero h1{font-size:clamp(72px,13.5vw,112px);line-height:.9}.hero .subtitle{font-size:24px;max-width:350px}.hero-bottom{font-size:8px}.hero-bottom span:first-child{display:none}.intro h2,.section-head h2{font-size:68px}.section-head{display:block}.section-head>p{max-width:350px}.story-grid{grid-template-columns:1fr;gap:50px}.story-image{height:350px}.story h3{font-size:49px}.quote-section{height:445px}.quote-content blockquote{font-size:41px}.gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:215px 170px;grid-auto-rows:170px;gap:9px}.gallery-item:first-child{grid-column:1/-1;grid-row:1}.gallery-item figcaption{font-size:8px;padding:30px 10px 10px}.about-grid{grid-template-columns:1fr;gap:45px}.about-art{height:295px;order:2}.about-art .star{font-size:108px}.about-art:before{width:210px;height:210px}.about-art:after{width:355px;height:355px}.footer-row,.footer-bottom{flex-direction:column;gap:23px}.footer-row{padding-bottom:55px}.footer-links{flex-wrap:wrap}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
+<link rel="stylesheet" href="/adventures/journal.css">
 </head>
 <body>
 <nav class="wrap" aria-label="Main navigation">
@@ -43,9 +44,9 @@ footer{background:#263a30;color:#e8eee8;padding-top:65px}.footer-row{display:fle
 <section class="section intro" id="intro"><div class="wrap intro-grid"><p class="eyebrow">01 / A NOTE FROM THE ROAD</p><div><h2 class="serif">A slower kind of <em>adventure.</em></h2><p class="lead">A place to collect the little things a journey leaves behind — the weather, the silence, the turning of a trail, and the moments worth remembering.</p><a class="text-link" href="#about">THE STORY BEHIND THIS JOURNAL ↗</a></div></div></section>
 <section class="section" id="journal"><div class="wrap"><div class="section-head"><div><p class="eyebrow">02 / FROM THE FIELD</p><h2 class="serif">Latest <em>stories.</em></h2></div><p>{{ site.data.adventures.journal_note | escape }}</p></div>
 <div class="story-grid">
-{% assign stories = site.stories | where: "published", true | sort: "date" | reverse %}
+{% assign stories = site.stories | concat: site.notion_articles | where: "published", true | sort: "date" | reverse %}
 {% for story in stories %}
-<article class="story"><div class="story-image"><img loading="lazy" src="{{ story.cover | escape }}" alt="{{ story.alt | escape }}"><span class="arrow">↗</span></div><div class="story-meta"><span>{{ story.category | escape }}</span><span>{% if story.sample %}SAMPLE ENTRY{% else %}{{ story.date | date: "%d %b %Y" }}{% endif %}</span></div><h3>{{ story.title | escape }}</h3><p>{{ story.summary | escape }}</p><details class="story-details"><summary>READ THE STORY</summary><div class="prose">{{ story.content }}</div></details></article>
+<article class="story"><div class="story-image">{% if story.cover != "" %}<img loading="lazy" src="{{ story.cover | escape }}" alt="{{ story.alt | default: story.title | escape }}">{% else %}<div class="image-fallback">Field notes from the road</div>{% endif %}<span class="arrow">↗</span></div><div class="story-meta"><span>{{ story.category | escape }}</span><span>{% if story.sample %}SAMPLE ENTRY{% else %}{{ story.date | date: "%d %b %Y" }}{% endif %}</span></div><h3>{% if story.notion %}<a href="{{ story.url }}">{{ story.title | escape }}</a>{% else %}{{ story.title | escape }}{% endif %}</h3><p>{{ story.summary | escape }}</p>{% if story.notion %}<a class="readmore" href="{{ story.url }}">READ THE STORY ↗</a>{% else %}<details class="story-details"><summary>READ THE STORY</summary><div class="prose">{{ story.content }}</div></details>{% endif %}</article>
 {% else %}<p class="photo-note">New stories are on their way.</p>{% endfor %}
 
 </div></div></section>
@@ -64,4 +65,4 @@ var toggle=document.querySelector(".menu"),links=document.querySelector(".navlin
 toggle.addEventListener("click",function(){var open=toggle.getAttribute("aria-expanded")!=="true";toggle.setAttribute("aria-expanded",String(open));links.classList.toggle("open",open)});
 links.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){toggle.setAttribute("aria-expanded","false");links.classList.remove("open")})});
 </script>
-</body></html>
+<script src="/adventures/images.js" defer></script></body></html>

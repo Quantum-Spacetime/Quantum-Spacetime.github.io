@@ -1,0 +1,1 @@
+document.querySelectorAll('img').forEach(function(img){function fallback(){var box=document.createElement('div');box.className='image-fallback';box.textContent=img.alt||'Photograph unavailable';img.replaceWith(box)}img.addEventListener('error',fallback,{once:true});if(img.complete&&img.naturalWidth===0)fallback()});

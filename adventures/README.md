@@ -1,87 +1,42 @@
-# The Quiet Atlas — visual editing guide
+# The Quiet Atlas — write in Notion
 
-The adventure journal keeps its original design. Stories and photographs are now edited in **Pages CMS**, a hosted visual editor connected to this repository. The personal homepage at `/` is unchanged.
+Articles: https://www.notion.so/f6f3b39feb4f4ca381da9698717358ca
 
-- Journal: https://quantum-spacetime.github.io/adventures/
-- Editor entrance: https://quantum-spacetime.github.io/adventures/admin/
-- Visual editor: https://app.pagescms.org/
-- GitHub Pages settings: https://github.com/Quantum-Spacetime/Quantum-Spacetime.github.io/settings/pages
+Website: https://quantum-spacetime.github.io/adventures/
 
-## One-time activation (no code)
+## One-time activation (owner only)
 
-1. Sign in to https://app.pagescms.org/ with the GitHub account that can write to this repository.
-2. Follow **Install the GitHub App**. Choose the owning account **Quantum-Spacetime**, choose **Only select repositories**, and select **Quantum-Spacetime.github.io**. Review the requested permissions. Do not grant access to unrelated repositories. Organization-owned copies may require an organization administrator.
-3. Open **Quantum-Spacetime / Quantum-Spacetime.github.io** and branch **main**. The editor reads the existing `.pages.yml`; do not replace it with a starter configuration.
-4. You should see **Journal stories**, **Banner images and photography gallery**, and the media library. If prompted to create a configuration, check that you selected the right repository and branch and that the CMS integration has been merged.
-5. In GitHub Pages settings, retain **Deploy from a branch → main → /(root)**. This integration uses GitHub's native Jekyll build; no custom deployment workflow, OAuth server, database, or secret is required. The current repository uses this publishing source.
-6. Open an existing sample story. Change a small piece of text, save it, and wait for **pages build and deployment** to finish at https://github.com/Quantum-Spacetime/Quantum-Spacetime.github.io/actions . Refresh the journal. This is the final account-specific activation check.
+1. Visit https://www.notion.so/profile/integrations and create an **internal integration** named **Quiet Atlas Publisher** in the workspace containing the Articles database. Grant **Read content** only; no insert/update or user information permission is needed. Copy the internal integration secret privately.
+2. Open the Articles database above. Use **••• → Connections → Add connection** and select **Quiet Atlas Publisher**. If the integration setup has an **Access** tab instead, add this database there. The database must be accessible to the integration, not just to ChatGPT's separate Notion connector. Do not publish the database to the web.
+3. Open https://github.com/Quantum-Spacetime/Quantum-Spacetime.github.io/settings/secrets/actions . Choose **New repository secret**, name it exactly `NOTION_TOKEN`, paste the integration secret as its value, and save. Never put it in a file, article, chat, repository variable, or browser JavaScript.
+4. Open https://github.com/Quantum-Spacetime/Quantum-Spacetime.github.io/settings/pages . Under **Build and deployment → Source**, select **GitHub Actions**. The workflow deploys the whole existing Jekyll site and preserves `/` as well as `/adventures/`.
+5. Open https://github.com/Quantum-Spacetime/Quantum-Spacetime.github.io/actions/workflows/notion-publish.yml and select **Run workflow → main → Run workflow**. Expect a successful **Export published articles**, build, link check and deployment. No separate GitHub personal access token is required. If repository rules prohibit the bot from committing to main, permit this publisher through the repository's approved process; a rejected push deliberately prevents deployment.
+6. For the final end-to-end check, duplicate the starter draft, write a short real article, upload a cover and inline photograph, choose a unique slug, and set Status to **published**. Run the workflow and open `/adventures/journal/your-slug/`. Verify both images. Return it to draft if you do not want to retain it. Previously published data remains in Git history.
 
-Only the owner can authorize the Pages CMS installation. Installing it is separate from adding the site's configuration. The signed-in save/upload workflow cannot be certified until that installation is complete.
+## Everyday writing — no code
 
-## Write, edit, publish and delete
+Click **New** in the Articles database or duplicate the starter draft. Write the **body inside the page**, below its properties; there is deliberately no cramped Body property. Use normal Notion formatting and drag/upload photographs into the body. Add captions for image descriptions. Fill Title, Summary, Date, Location and Category. Upload a photo to the **Cover** files property (first file wins), or use the native page cover as a fallback.
 
-- **Create:** open **Journal stories**, use the new-entry control, add title, date, category/place, summary, cover photograph, image description, and story. The story editor has formatting and image controls; no HTML or Markdown editing is needed.
-- **Publish:** turn on **Show on the website**, leave **Mark as an example story** off, and save. Save commits content to the selected branch; GitHub Pages rebuilds the site. The date controls sorting, newest first; it does not schedule publication.
-- **Edit:** select an existing entry, change its fields or formatted body, and save. Native expandable stories remain on the journal page; this migration does not add separate article URLs.
-- **Hide:** turn off **Show on the website** and save. A new story defaults to hidden. Hidden stories do not appear in the built journal, but their source remains public in this public repository. Never put private drafts or private photos here.
-- **Delete:** use the entry's delete control. Deletion is a Git commit and can be recovered through Git history. It removes the story after the next deployment; it does not erase repository history or automatically remove its photographs.
-- **Replace a cover:** choose/upload another photograph in **Cover photograph**, update its description, and save the story. A new unique filename avoids stale browser caches.
-- **Inline photos:** use the image control in the story toolbar. Add a useful description where the editor supports it.
-- **Banner/gallery:** open **Banner images and photography gallery**. Replace the main banner or quotation photograph, edit the gallery list, or drag list items to reorder. The first gallery photo retains its large placement. Remove the placeholder notices once you replace the examples.
-- **Delete a photo:** first replace/remove every cover, banner, gallery and story reference to it, then delete the file in the media library. There is no automatic reference tracking/garbage collection.
+Choose a unique lowercase slug with hyphens (`a-walk-in-the-alps`). If blank, the publisher derives one from the title; explicitly setting it prevents title edits from changing the URL. Keep it stable after publishing. Renaming it changes the URL without creating a redirect.
 
-Keep `main` selected for normal publishing. Saving to a different branch does not update the live site. A successful save is not a successful deployment: check the Actions page if changes do not appear. Browser caching can also delay a replacement; prefer new filenames.
+Set Status to **draft** (or leave it empty) to keep a new article private in Notion. Set **published** to publish. Date is required for published posts, controls newest-first ordering, and does not schedule publication. The workflow checks hourly, with possible GitHub scheduling delays. Use **Run workflow** for an immediate check. Deleting, archiving or returning a published page to draft removes its current article and listing on the next successful sync. Already published content and images remain in public Git history; draft status cannot undo prior disclosure.
 
-## Why Pages CMS
+Supported body blocks: paragraphs, headings, bold/italic/underline/strike/code, safe links, nested lists, checkboxes, quotes, callouts, toggles, code blocks, columns, tables, dividers, bookmarks and uploaded images. Unsupported blocks stop the export with their block type; convert them to supported text/images. Videos, attachments, equations, synced blocks and child pages are not exported. External image URLs must be public HTTPS; uploading directly to Notion is the reliable path. Failed downloads stop publishing and preserve the previous deployed site. Missing covers receive a neutral field-note panel; runtime broken images show their description.
 
-| Option | Authentication and maintenance | Fit here |
-| --- | --- | --- |
-| Hosted Pages CMS | GitHub sign-in and a repository-scoped GitHub App; hosted service handles credentials | Selected: free/open source, visual story editor and media uploads, no custom authentication backend |
-| Decap CMS + GitHub | Visual editing is good, but standard GitHub setup needs an OAuth provider/backend; hosted Decap Turbo is another option whose terms/limits should be checked | More infrastructure or another service configuration to maintain; no advantage for this small journal |
-| Self-hosted CMS | Control over hosting, upgrades, database and authentication | Reasonable later if hosted-service dependence becomes unacceptable; unnecessary operational burden now |
+## Images and privacy
 
-Pages CMS is a third-party service you authorize to write repository contents. It is not a password screen hosted by this site, and its field configuration is not a GitHub security boundary. Repository permissions still govern who can change files. Install only on this repository, grant write access only to trusted editors, use GitHub account protection, and revoke the app in GitHub settings if you stop using it. No collaborator invitation or extra app grant is made by this code change.
+Only images referenced by published entries are downloaded. Photos become metadata-stripped WebP files, at most 2400 pixels on either dimension, quality 84, under `adventures/images/notion/`. Content hashes give stable filenames across expiring Notion signatures. Original signed URLs and Notion API responses are never saved. Files over 25 MB and unsupported formats stop publishing; upload JPEG/PNG/WebP exports for best compatibility. Keep original photographs backed up elsewhere.
 
-The `/adventures/admin/` page is only an editor doorway. It contains no token, client secret, custom login handler or publicly writable upload endpoint. There is no access token stored in this site's source, browser storage, or deployment configuration by this integration. Actual login credentials are handled by GitHub and Pages CMS.
+Old optimized images stay in Git so previous published references remain durable. They are not automatically deleted when a post is removed. The public repository and Git history remain public. Review photos and text before setting published.
 
-## Can GitHub store photos?
+## Maintenance
 
-Yes. The configured media library uploads JPG/JPEG, PNG, WebP or AVIF into `adventures/images/` and writes public URLs under `/adventures/images/`. Random upload names reduce accidental overwrites. The journal ships no new third-party photo account requirement. Existing Unsplash demonstration images are preserved until you replace them.
+The workflow uses only `NOTION_TOKEN`, scoped to the export step. GitHub's built-in token commits generated articles/photos and deploys Pages through its OIDC mechanism. Actions are pinned to commit SHAs. No pull-request workflow receives the Notion token. Permissions are scoped to the publishing job. A complete export is staged before replacing prior generated articles; build and local-link checks must pass before commit and deployment. A concurrent main-branch edit causes push rejection rather than overwriting another edit.
 
-For a modest journal, this is the easiest one-editor workflow. Export web-sized copies before uploading: a practical target is 1,600–2,400 pixels on the long edge, roughly 200–500 KB where quality allows. These are recommendations, not enforced upload limits. Keep original files backed up elsewhere. Remove location/EXIF metadata before publishing if you do not want it public; this integration does not strip metadata.
+The data source ID is `75d45a99-5c45-4706-8855-e2255b3011b0` (not a secret). The body remains native Notion page blocks. Legacy sample entries and the banner/gallery settings are preserved. Pages CMS is superseded as the article editor; its old configuration remains for historical compatibility and does not sync Notion. Do not edit generated `notion-*` files in Pages CMS.
 
-| Storage | Published limits checked 7 November 2026 | Trade-off |
-| --- | --- | --- |
-| GitHub Pages | Source repository recommended ≤1 GB; published site ≤1 GB; soft bandwidth limit 100 GB/month. Regular Git warns above 50 MiB and blocks above 100 MiB per file. CMS/API upload limits may be lower. | Simplest built-in upload flow; no automatic image optimization; binary replacements accumulate in Git history. Git LFS is not supported for Pages sites. |
-| Cloudinary Free | 25 monthly credits shared across storage, delivery and transformations; not 25 GB of each resource | Strong image optimization/CDN and media dashboard; another account and quota model |
-| ImageKit Forever Free | 3 GB media storage and 20 GB monthly bandwidth | Useful optimization/CDN and media library; another account and quota |
+Validation: `PATH=/opt/homebrew/opt/ruby/bin:$PATH python3 scripts/notion/verify_build.py` exercises a full isolated fixture build (omit the PATH adjustment on other platforms). `python3 -m unittest discover -s tests -v`; `bundle exec jekyll build --strict_front_matter`; `python3 scripts/notion/check_site.py _site`. Install `requirements-notion.txt` for the exporter/tests and the Gemfile for local Jekyll builds. Live Notion authorization and uploads require activation above; fixture tests are not evidence of live sync.
 
-At 300 KB each, 1,000 photos are about 300 MB before history and other assets. Repeatedly replacing photos can make the repository much larger even after deleting current files.
+Rollback: revert this integration commit and restore Pages source to **Deploy from a branch → main → /(root)**. Remove `NOTION_TOKEN` and revoke the internal integration separately if stopping the service. Reverting code does not revoke credentials or erase previously public content.
 
-**Recommendation:** start with compressed GitHub-hosted photographs. Move to an image CDN when the library or traffic warrants it. Cloudinary/ImageKit are evaluated alternatives, not integrated upload destinations in this implementation. Their dashboards can provide public delivery URLs, but a seamless authenticated external picker/uploader would need a separate integration. Never put their API secrets into this static site or enable unrestricted anonymous uploads just to avoid authentication.
-
-## Maintenance and verification
-
-- `.pages.yml`: visual editor schema and allowed media folder.
-- `_stories/*.md`: per-story metadata plus an HTML body produced by the visual editor. The `.md` extension is an implementation detail; editors do not edit Markdown.
-- `_data/adventures.json`: banner photographs, notes and gallery list.
-- `adventures/index.html`: original design with Jekyll content loops. No JavaScript content-fetching dependency.
-- `_config.yml`: non-output story collection. Jekyll includes published content in the journal and does not emit story source files.
-
-For maintainers: use Ruby 3.x, run `bundle install`, then `python3 scripts/verify.py`. The integration check uses isolated builds to exercise create/edit/delete, hidden stories, ordering, photo replacement, gallery changes, escaping and empty state, and checks that the built root homepage is byte-identical. `bundle exec jekyll build --strict_front_matter` performs a normal build. Account authorization and actual CMS uploads require the one-time activation above.
-
-Rollback: revert the CMS integration commit/merge in GitHub. Story/photo edits remain recoverable through repository history. If removing the CMS entirely, revoke its GitHub App access separately; reverting files does not revoke permissions.
-
-## Official references
-
-- Pages CMS setup: https://pagescms.org/docs/quick-start/
-- Configuration: https://pagescms.org/docs/configuration/
-- Media paths: https://pagescms.org/docs/configuration/media/
-- Visual HTML editor: https://pagescms.org/docs/configuration/fields/rich-text/
-- Decap GitHub authentication: https://decapcms.org/docs/github-backend/
-- Pages publishing source: https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
-- Pages limits: https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits
-- Git file limits: https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github
-- Git LFS limitations: https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage
-- Cloudinary pricing: https://cloudinary.com/pricing
-- ImageKit pricing: https://imagekit.io/plans/
+References: [Notion data-source API](https://developers.notion.com/reference/query-a-data-source), [temporary file URLs](https://developers.notion.com/reference/file-object), [GitHub custom Pages workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
