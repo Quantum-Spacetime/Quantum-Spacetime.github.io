@@ -1,0 +1,10 @@
+# Native GitHub Pages Jekyll build; root homepage has no frontmatter and is copied unchanged.
+collections:
+  stories:
+    output: false
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - scripts
+  - adventures/README.md
+  - vendor
