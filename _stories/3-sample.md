@@ -5,8 +5,8 @@
   "date": "2026-11-01",
   "category": "REFLECTIONS / NIGHT SKY",
   "sample": true,
-  "cover": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1300&q=82",
-  "alt": "Star-filled night above a snowy mountain",
+  "cover": "/adventures/images/covers/horses-at-sunset.webp",
+  "alt": "Horses silhouetted beside the sea beneath a golden setting sun",
   "summary": "On distance, wonder, and the strange comfort of feeling small."
 }
 ---

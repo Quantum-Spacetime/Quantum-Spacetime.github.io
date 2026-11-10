@@ -5,8 +5,8 @@
   "date": "2026-11-03",
   "category": "TRAILS / ALPINE COUNTRY",
   "sample": true,
-  "cover": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1300&q=82",
-  "alt": "Still alpine lake below high mountains",
+  "cover": "/adventures/images/covers/crater-lake.webp",
+  "alt": "Turquoise crater lake beneath volcanic ridges in soft morning light",
   "summary": "A reminder that the best parts of a journey are not always the ones we planned."
 }
 ---

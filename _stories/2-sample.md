@@ -5,8 +5,8 @@
   "date": "2026-11-02",
   "category": "NATURE / WOODLAND",
   "sample": true,
-  "cover": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1300&q=82",
-  "alt": "Golden sunlight filtering through a green forest",
+  "cover": "/adventures/images/covers/rocky-shore.webp",
+  "alt": "Waves washing between boulders on a dark sandy shore",
   "summary": "On quiet trails, hidden details, and walking without an itinerary."
 }
 ---

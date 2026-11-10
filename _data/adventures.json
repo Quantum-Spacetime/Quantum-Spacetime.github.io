@@ -1,24 +1,39 @@
 {
-  "hero_image": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2300&q=85",
-  "hero_alt": "Misty mountains",
-  "interlude_image": "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=2200&q=85",
+  "hero_image": "/adventures/images/covers/snowy-mountains.webp",
+  "hero_alt": "Snow-covered mountain peaks rising above low clouds",
+  "interlude_image": "/adventures/images/covers/horses-at-sunset.webp",
   "journal_note": "These are example stories. Your own adventures will take their place here.",
-  "photo_note": "Placeholder landscape photos via Unsplash. Replace these with your own photography when ready.",
+  "photo_note": "Photographs by Liam — moments gathered along the way.",
   "gallery": [
     {
-      "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=82",
-      "alt": "Peaceful forest",
-      "caption": "01 / INTO THE WOODS"
+      "image": "/adventures/images/covers/snowy-mountains.webp",
+      "alt": "Snow-covered mountain peaks rising above low clouds",
+      "caption": "01 / ABOVE THE CLOUDS"
     },
     {
-      "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1000&q=82",
-      "alt": "Alpine mountain lake",
-      "caption": "02 / STILL WATERS"
+      "image": "/adventures/images/covers/crater-lake.webp",
+      "alt": "Turquoise crater lake beneath volcanic ridges in soft morning light",
+      "caption": "02 / FIRST LIGHT"
     },
     {
-      "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1000&q=82",
-      "alt": "Stars and mountains at night",
-      "caption": "03 / AFTER DARK"
+      "image": "/adventures/images/covers/market.webp",
+      "alt": "Produce stalls beneath the high roof of a busy covered market",
+      "caption": "03 / MARKET DAYS"
+    },
+    {
+      "image": "/adventures/images/covers/rocky-shore.webp",
+      "alt": "Waves washing between boulders on a dark sandy shore",
+      "caption": "04 / AT THE WATER’S EDGE"
+    },
+    {
+      "image": "/adventures/images/covers/horses-at-sunset.webp",
+      "alt": "Horses silhouetted beside the sea beneath a golden setting sun",
+      "caption": "05 / THE GOLDEN HOUR"
+    },
+    {
+      "image": "/adventures/images/covers/coastal-hills.webp",
+      "alt": "Layered coastal hills and sheltered bays beneath a pale evening sky",
+      "caption": "06 / THE LONG WAY HOME"
     }
   ]
 }
